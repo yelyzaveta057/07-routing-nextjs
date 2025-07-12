@@ -1,6 +1,6 @@
 
 import css from "./Header.module.css";
-
+import { TagsMenu } from "../TagsMenu/TagsMenu";
 import Link from "next/link";
 
 export default function Header () {
@@ -19,6 +19,7 @@ export default function Header () {
           </li>
         </ul>
       </nav>
+      <TagsMenu />
     </header>
   );
 };

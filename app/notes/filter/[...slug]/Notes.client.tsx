@@ -3,26 +3,28 @@ import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 
-import NoteList from "../../components/NoteList/NoteList";
-import SearchBox from "../../components/SearchBox/SearchBox";
+import NoteList from "../../../../components/NoteList/NoteList";
+import SearchBox from "../../../../components/SearchBox/SearchBox";
 
-import { Note } from "../../types/note";
+import { Note } from "../../../../types/note";
 import css from "./NotesPage.module.css";
 
-import { fetchNotes } from "../../lib/api";
-import Pagination from "../../components/Pagination/Pagination";
-import NoteModal from "../../components/NoteModal/NoteModal";
+import { fetchNotes } from "../../../../lib/api";
+import Pagination from "../../../../components/Pagination/Pagination";
+import NoteModal from "../../../../components/Modal/Modal";
 
 type NotesHttpResponse = {
   notes: Note[];
   totalPages: number;
 };
 
-type Props = {
+type Props = { 
   initialValue: NotesHttpResponse;
+  tag?: string;
 };
 
-const NotesClient = ({ initialValue }: Props) => {
+
+const NotesClient = ({ initialValue, tag }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
@@ -39,8 +41,8 @@ const NotesClient = ({ initialValue }: Props) => {
   const [debouncedQuery] = useDebounce(query, 400);
 
   const { data } = useQuery<NotesHttpResponse>({
-    queryKey: ["notes", debouncedQuery, page],
-    queryFn: () => fetchNotes(debouncedQuery, page),
+    queryKey: ["notes", debouncedQuery, page, tag],
+    queryFn: () => fetchNotes(debouncedQuery, page, tag),
     placeholderData: keepPreviousData,
     initialData: initialValue,
   });
@@ -49,6 +51,10 @@ const NotesClient = ({ initialValue }: Props) => {
     setQuery(event.target.value);
     setPage(1);
   };
+
+  console.log('RECEIVED TAG:', tag);
+console.log('DATA:', data);
+
 
   return (
     <>
@@ -79,3 +85,4 @@ const NotesClient = ({ initialValue }: Props) => {
 };
 
 export default NotesClient;
+
