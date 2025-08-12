@@ -1,5 +1,7 @@
 import axios from 'axios';
-import type { Note, NewNoteData } from '../types/note';
+import type { Note, NewNoteData, NoteListResponse } from '../types/note';
+
+
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 const TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -19,7 +21,8 @@ export interface NotesHttpResponse {
 export const fetchNotes = async (
   query: string = "",
   page: number = 1,
-  perPage: number = 12
+  perPage: number = 12,
+  tag?: string,
 ): Promise<NotesHttpResponse> => {
   const params: Record<string, string> = {
     page: page.toString(),
@@ -29,10 +32,9 @@ export const fetchNotes = async (
   if (query.trim()) {
     params.search = query;
   }
+if (tag) params.tag = tag;
 
   const response = await noteServiceClient.get<NotesHttpResponse>('/notes', { params });
-
-  console.log("➡️ FETCH notes", params);
 
   return response.data;
 };
@@ -52,4 +54,13 @@ export const createNote = async (noteData: NewNoteData): Promise<Note> => {
 export const deleteNote = async (noteId: string): Promise<Note> => {
   const res = await noteServiceClient.delete<Note>(`/notes/${noteId}`);
   return res.data;
+};
+
+
+
+export const getNotess = async (tag?: string) => {
+  const { data } = await noteServiceClient.get<NoteListResponse>("/notes", {
+    params: tag ? { tag } : undefined, 
+  });
+  return data;
 };

@@ -1,14 +1,9 @@
 // app/notes/page.tsx
-import { fetchNotes } from "@/lib/api";
-import NotesClient from "./Notes.client";
+import { redirect } from "next/navigation";
 
-export default async function NotesPage() {
-  const initialData = await fetchNotes();
-
-  return <NotesClient initialData={initialData} />;
+export default function NotesLegacy() {
+  redirect("/notes/filter");
 }
-
-
 
 
 
