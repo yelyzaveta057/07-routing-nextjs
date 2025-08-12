@@ -1,6 +1,4 @@
-// app/notes/filter/[[...slug]]/page.tsx
 
-import { getNotess } from "@/lib/api";
 import NotesClient from "./Notes.client";
 
 export default async function NotesPage({

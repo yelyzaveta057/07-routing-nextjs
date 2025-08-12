@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import type { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,8 +23,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  preview
 }: Readonly<{
   children: React.ReactNode;
+   preview:  React.ReactNode;
+ 
 }>) {
   return (
     <html lang="en">
@@ -32,6 +36,7 @@ export default function RootLayout({
         <TanStackProvider>
           <Header />
         {children}
+          {preview}
         <Footer/>
         </TanStackProvider>
       </body>

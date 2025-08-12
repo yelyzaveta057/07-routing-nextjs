@@ -4,7 +4,6 @@ import Link from "next/link";
 import { TagsMenu } from "../TagsMenu/TagsMenu";
 
 
-const tagsList = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
 const Header = async () => {
 
