@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { fetchNoteById } from "../../../../lib/api";
 
 import Modal from "../../../../components/Modal/Modal";
-
 import css from "./NotePreview.module.css"
 
 const NotePreview = () => {
@@ -13,7 +12,7 @@ const NotePreview = () => {
   const close = () => router.back();
 
   const { id } = useParams<{ id: string }>();
-  const noteId = Number(id);
+
 
   const {
     data: note,

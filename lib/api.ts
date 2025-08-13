@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Note, NewNoteData, NoteListResponse } from '../types/note';
+import type { Note, NewNoteData} from '../types/note';
 
 
 
@@ -56,11 +56,3 @@ export const deleteNote = async (noteId: string): Promise<Note> => {
   return res.data;
 };
 
-
-
-export const getNotess = async (tag?: string) => {
-  const { data } = await noteServiceClient.get<NoteListResponse>("/notes", {
-    params: tag ? { tag } : undefined, 
-  });
-  return data;
-};
